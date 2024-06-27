@@ -49,10 +49,17 @@ function App() {
 
             {/* So here i have used the spread operator which pulls out all the key value pairs from object 
             and it is same as the above syntax*/}
+
+            {/* 
             <CoreConcept {...CORE_CONCEPTS[0]} />
             <CoreConcept {...CORE_CONCEPTS[1]} />
             <CoreConcept {...CORE_CONCEPTS[2]} />
-            <CoreConcept {...CORE_CONCEPTS[3]} />
+            <CoreConcept {...CORE_CONCEPTS[3]} /> 
+            */}
+
+            {/* Dynamically outputting the list data using map function */}
+            {/* here key prop is added to uniquely identify the list item */}
+            {CORE_CONCEPTS.map((coreItem) => <CoreConcept key={coreItem.title} {...coreItem}/> )}
           </ul>
         </section>
 
