@@ -50,7 +50,8 @@ function App() {
         {/* here the onSelectsquare is used to pass the gameboard thagt which player is currently active */}
         <GameBoard onSelectSquare={handleSelectSquare} turns={gameTurns} />
       </div>
-      <Log />
+
+      <Log turns={gameTurns}/>
     </main>
   );
 }
