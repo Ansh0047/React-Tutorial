@@ -3,7 +3,7 @@ import { useState } from "react";
 
 // IMT Note: When we are using a component React will create the new isolated instance and changes to it,
 // will not affect the other componets on reusing it.
-export default function Player({initialName,symbol}) {
+export default function Player({initialName,symbol, isActive}) {
     const [playerName,setPlayerName] = useState(initialName);
     const [isEditing, setIsEditing] = useState(false);
 
@@ -11,6 +11,7 @@ export default function Player({initialName,symbol}) {
     // function to change the state if we are editing or not
     function handleEditClick(){
       // setIsEditing(!isEditing);    // schedules a state update
+      // here editing will refer to the old state
       setIsEditing((editing) => !editing);   // good practice to use this for updating the state.   
     }
 
@@ -30,7 +31,7 @@ export default function Player({initialName,symbol}) {
     }
 
   return (
-    <li>
+    <li className={isActive ? 'active' : undefined}>
       <span className="player">
         {editablePlayerName}
         <span className="player-symbol">{symbol}</span>
