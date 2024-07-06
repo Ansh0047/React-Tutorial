@@ -3,21 +3,31 @@ import Player from "./components/Player";
 import GameBoard from "./components/GameBoard";
 import Log from "./components/Log";
 
+function deriveActivePlayer(gameTurns){
+  // now instead of having two states we can use only only to derive the players turns from game turns 
+  // so we are deriving the state
+  let currentPlayer = "X";
+
+  if (gameTurns.length > 0 && gameTurns[0].player === "X") {
+    currentPlayer = "O";
+  }
+
+  return currentPlayer;
+}
+
 function App() {
   // here we have used the concept of list state up to the closest Ancestor component
   const [gameTurns, setGameTurns] = useState([]);
-  const [activePlayer, setActivePlayer] = useState('X');
+  // const [activePlayer, setActivePlayer] = useState('X');
+  const activePlayer = deriveActivePlayer(gameTurns);
 
   function handleSelectSquare(rowIndex, colIndex) {
-    setActivePlayer((curActivePlayer) => (curActivePlayer === 'X' ? 'O' : 'X'));
+    // setActivePlayer((curActivePlayer) => (curActivePlayer === 'X' ? 'O' : 'X'));
 
     // state Change function to set which player turns and store its index and its symbol
     setGameTurns((prevTurns) => {
-      let currentPlayer = 'X';
+      const currentPlayer = deriveActivePlayer(prevTurns);
 
-      if (prevTurns.length > 0 && prevTurns[0].player === 'X') {
-        currentPlayer = 'O';
-      }
       //  here in the state change function we have added the previous turns (...prevTurns) and added a new turn at the starting
       // which have row,col index with the symbol of the player selcted the square
       const updatedTurns = [
@@ -37,12 +47,12 @@ function App() {
           <Player
             initialName="Player 1"
             symbol="X"
-            isActive={activePlayer === 'X'}
+            isActive={activePlayer === "X"}
           />
           <Player
             initialName="Player 2"
             symbol="O"
-            isActive={activePlayer === 'O'}
+            isActive={activePlayer === "O"}
           />
         </ol>
 
@@ -51,7 +61,7 @@ function App() {
         <GameBoard onSelectSquare={handleSelectSquare} turns={gameTurns} />
       </div>
 
-      <Log turns={gameTurns}/>
+      <Log turns={gameTurns} />
     </main>
   );
 }

@@ -1,4 +1,3 @@
-
 const initialGameBoard = [
   [null, null, null],
   [null, null, null],
@@ -6,13 +5,13 @@ const initialGameBoard = [
 ];
 
 // now in this turns array of objects that contains one object ie. square and other player property to store symbol
-export default function GameBoard({ onSelectSquare, turns}) {
+export default function GameBoard({ onSelectSquare, turns }) {
   // deriving the information from the props turns which is computed by the state
   let gameBoard = initialGameBoard;
 
-  for(const turn of turns){
-    const {square, player} = turn;
-    const {row, col} = square;
+  for (const turn of turns) {
+    const { square, player } = turn;
+    const { row, col } = square;
 
     gameBoard[row][col] = player;
   }
@@ -29,7 +28,7 @@ export default function GameBoard({ onSelectSquare, turns}) {
   //     return updatedBoard;
   //   });
 
-    // onSelectSquare();
+  // onSelectSquare();
   // }
 
   return (
@@ -39,7 +38,12 @@ export default function GameBoard({ onSelectSquare, turns}) {
           <ol>
             {row.map((playerSymbol, colIndex) => (
               <li key={colIndex}>
-                <button onClick={() => onSelectSquare(rowIndex, colIndex)}>{playerSymbol}</button>
+                <button
+                  onClick={() => onSelectSquare(rowIndex, colIndex)}
+                  disabled={playerSymbol !== null}
+                >
+                  {playerSymbol}
+                </button>
               </li>
             ))}
           </ol>
