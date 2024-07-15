@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState } from "react";
 // to use styled component import this
-import {styled} from 'styled-components';
+import { styled } from "styled-components";
 
 const ControlContainer = styled.div`
   display: flex;
@@ -16,10 +16,10 @@ const Label = styled.label`
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  // here in the color propert we have set the styled component with the dynamic style 
+  // here in the color propert we have set the styled component with the dynamic style
   // where this function will executed to dynamically derive the value and this styled component will recieve props
   // as objects as an input for this function
-  color: ${({$invalid}) => $invalid ? '#f87171' : '#6b7280'};
+  color: ${({ $invalid }) => ($invalid ? "#f87171" : "#6b7280")};
 `;
 
 const Input = styled.input`
@@ -27,22 +27,37 @@ const Input = styled.input`
   padding: 0.75rem 1rem;
   line-height: 1.5;
 
-  // and make sure this invalid is a prop that is passed as an input to the function 
-  background-color: ${({$invalid}) => $invalid ? '#fed2d2' : '#d1d5db'};
-  color: ${({$invalid}) => $invalid ? '#ef4444' : '#374151'};
-  border: 1px solid ${({$invalid}) => $invalid ? '#f73f3f' : 'transparent'};
+  // and make sure this invalid is a prop that is passed as an input to the function
+  background-color: ${({ $invalid }) => ($invalid ? "#fed2d2" : "#d1d5db")};
+  color: ${({ $invalid }) => ($invalid ? "#ef4444" : "#374151")};
+  border: 1px solid ${({ $invalid }) => ($invalid ? "#f73f3f" : "transparent")};
   border-radius: 0.25rem;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
 `;
 
+const Button = styled.button`
+  padding: 1rem 2rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  border-radius: 0.25rem;
+  color: #1f2937;
+  background-color: #f0b322;
+  border-radius: 6px;
+  border: none;
+
+  // for pseudo selectors
+  &:hover {
+    background-color: #f0920e;
+  }
+`;
 
 export default function AuthInputs() {
-  const [enteredEmail, setEnteredEmail] = useState('');
-  const [enteredPassword, setEnteredPassword] = useState('');
+  const [enteredEmail, setEnteredEmail] = useState("");
+  const [enteredPassword, setEnteredPassword] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
   function handleInputChange(identifier, value) {
-    if (identifier === 'email') {
+    if (identifier === "email") {
       setEnteredEmail(value);
     } else {
       setEnteredPassword(value);
@@ -53,7 +68,7 @@ export default function AuthInputs() {
     setSubmitted(true);
   }
 
-  const emailNotValid = submitted && !enteredEmail.includes('@');
+  const emailNotValid = submitted && !enteredEmail.includes("@");
   const passwordNotValid = submitted && enteredPassword.trim().length < 6;
 
   return (
@@ -69,7 +84,7 @@ export default function AuthInputs() {
             // className={emailNotValid ? 'invalid' : undefined}
             // here i don't want to use the Dynamic CSS classes instead use the  styled CSS components
             $invalid={emailNotValid}
-            onChange={(event) => handleInputChange('email', event.target.value)}
+            onChange={(event) => handleInputChange("email", event.target.value)}
           />
         </p>
         <p>
@@ -79,7 +94,7 @@ export default function AuthInputs() {
             type="password"
             // className={passwordNotValid ? 'invalid' : undefined}
             onChange={(event) =>
-              handleInputChange('password', event.target.value)
+              handleInputChange("password", event.target.value)
             }
           />
         </p>
@@ -88,7 +103,9 @@ export default function AuthInputs() {
         <button type="button" className="text-button">
           Create a new account
         </button>
-        <button className='button' onClick={handleLogin}>Sign In</button>
+        <Button onClick={handleLogin}>
+          Sign In
+        </Button>
       </div>
     </div>
   );
