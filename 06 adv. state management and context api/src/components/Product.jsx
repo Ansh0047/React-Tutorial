@@ -1,11 +1,12 @@
-export default function Product({
-  id,
-  image,
-  title,
-  price,
-  description,
-  onAddToCart,
-}) {
+// so, here we are using the context where it can be used up by the children wrapped by the context provider
+import { useContext } from "react";
+import { CartContext } from "../store/shopping-cart-context";
+
+export default function Product({id, image, title, price,description,}){
+  // here by using the object destructuring we get the fucntion addItemToCart
+  // and can use this without actually passing the props
+  const {addItemToCart} = useContext(CartContext);
+
   return (
     <article className="product">
       <img src={image} alt={title} />
@@ -16,7 +17,7 @@ export default function Product({
           <p>{description}</p>
         </div>
         <p className='product-actions'>
-          <button onClick={() => onAddToCart(id)}>Add to Cart</button>
+          <button onClick={() => addItemToCart(id)}>Add to Cart</button>
         </p>
       </div>
     </article>
