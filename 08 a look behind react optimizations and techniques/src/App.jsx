@@ -27,7 +27,8 @@ function App() {
           <button onClick={handleSetClick}>Set</button>
         </section> */}
         <ConfigureCounter onSet={handleSetCount} />
-        <Counter initialCount={chosenCount} />
+        {/* this key is added here just to ensure that */}
+        <Counter key={chosenCount} initialCount={chosenCount} />
       </main>
     </>
   );
