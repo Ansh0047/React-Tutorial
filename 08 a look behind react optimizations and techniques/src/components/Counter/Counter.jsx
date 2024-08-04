@@ -1,4 +1,4 @@
-import { useState, memo } from 'react';
+import { useState, memo, useCallback} from 'react';
 
 import IconButton from '../UI/IconButton.jsx';
 import MinusIcon from '../UI/Icons/MinusIcon.jsx';
@@ -34,13 +34,14 @@ const Counter = memo(function Counter({ initialCount }) {
 
   const [counter, setCounter] = useState(initialCount);
 
-  function handleDecrement() {
+  // useCallback is used with the useEffect and memo just to ensure that no function gets recreated if it doesn't change
+  const handleDecrement = useCallback(function handleDecrement() {
     setCounter((prevCounter) => prevCounter - 1);
-  }
+  }, []);  // no need for dependencies just as there are just state updating functions inside it 
 
-  function handleIncrement() {
+  const handleIncrement = useCallback(function handleIncrement() {
     setCounter((prevCounter) => prevCounter + 1);
-  }
+  }, []);
 
   return (
     <section className="counter">
@@ -49,6 +50,7 @@ const Counter = memo(function Counter({ initialCount }) {
         <strong>is {initialCountIsPrime ? 'a' : 'not a'}</strong> prime number.
       </p>
       <p>
+        {/* here also we don't want to re-render these icon buttons so we use memo with that component */}
         <IconButton icon={MinusIcon} onClick={handleDecrement}>
           Decrement
         </IconButton>
