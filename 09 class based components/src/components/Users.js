@@ -1,6 +1,5 @@
 import { Component } from 'react';
 import User from './User';
-
 import classes from './Users.module.css';
 
 // const DUMMY_USERS = [
@@ -18,6 +17,14 @@ class Users extends Component{
       showUsers: true
     };
   }
+
+  componentDidUpdate(){
+    if(this.props.users.length === 0){
+      throw new Error('No users provided');
+    }
+  }
+
+
   // so, in this class based component we have to declare the function outside the render method and we can call this using this keyword
   toggleUsersHandler(){
     // this.state.showUsers = false; not use that
@@ -25,6 +32,7 @@ class Users extends Component{
       return {showUsers: !curState.showUsers};
     });
   }
+
 
   render(){
     const usersList = (
